@@ -1,0 +1,15 @@
+[
+  { "id": "honda_vario_160",    "brandId": "honda",    "categoryId": "motor", "name": "Vario 160",     "yearStart": 2022, "yearEnd": 2026 },
+  { "id": "honda_pcx_160",     "brandId": "honda",    "categoryId": "motor", "name": "PCX 160",       "yearStart": 2021, "yearEnd": 2026 },
+  { "id": "honda_beat_fi",     "brandId": "honda",    "categoryId": "motor", "name": "BeAT eSP FI",   "yearStart": 2016, "yearEnd": 2026 },
+  { "id": "honda_supra_x125",  "brandId": "honda",    "categoryId": "motor", "name": "Supra X 125",   "yearStart": 2014, "yearEnd": 2024 },
+  { "id": "honda_hrv",         "brandId": "honda",    "categoryId": "mobil", "name": "HR-V",           "yearStart": 2015, "yearEnd": 2026 },
+  { "id": "honda_brio",        "brandId": "honda",    "categoryId": "mobil", "name": "Brio",           "yearStart": 2012, "yearEnd": 2026 },
+  { "id": "yamaha_nmax_155",   "brandId": "yamaha",   "categoryId": "motor", "name": "NMAX 155",      "yearStart": 2020, "yearEnd": 2026 },
+  { "id": "yamaha_aerox_155",  "brandId": "yamaha",   "categoryId": "motor", "name": "Aerox 155",     "yearStart": 2020, "yearEnd": 2026 },
+  { "id": "yamaha_mio_m3",     "brandId": "yamaha",   "categoryId": "motor", "name": "Mio M3 125",    "yearStart": 2013, "yearEnd": 2024 },
+  { "id": "toyota_avanza",     "brandId": "toyota",   "categoryId": "mobil", "name": "Avanza",         "yearStart": 2011, "yearEnd": 2026 },
+  { "id": "toyota_fortuner",   "brandId": "toyota",   "categoryId": "mobil", "name": "Fortuner",       "yearStart": 2016, "yearEnd": 2026 },
+  { "id": "daihatsu_xenia",    "brandId": "daihatsu", "categoryId": "mobil", "name": "Xenia",          "yearStart": 2011, "yearEnd": 2026 },
+  { "id": "kawasaki_ninja_250","brandId": "kawasaki", "categoryId": "motor", "name": "Ninja 250",     "yearStart": 2018, "yearEnd": 2026 }
+]

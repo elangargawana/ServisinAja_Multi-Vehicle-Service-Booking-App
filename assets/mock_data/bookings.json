@@ -1,0 +1,144 @@
+{
+  "slots": [
+    {"id":"slot-001","workshopId":"ws-002","date":"2026-10-05","time":"08:00","capacity":4,"booked":0},
+    {"id":"slot-002","workshopId":"ws-002","date":"2026-10-05","time":"09:00","capacity":4,"booked":1},
+    {"id":"slot-003","workshopId":"ws-002","date":"2026-10-05","time":"10:00","capacity":4,"booked":4},
+    {"id":"slot-004","workshopId":"ws-002","date":"2026-10-05","time":"11:00","capacity":4,"booked":3},
+    {"id":"slot-005","workshopId":"ws-002","date":"2026-10-05","time":"13:00","capacity":4,"booked":2},
+    {"id":"slot-006","workshopId":"ws-002","date":"2026-10-05","time":"14:00","capacity":4,"booked":0},
+    {"id":"slot-007","workshopId":"ws-002","date":"2026-10-05","time":"15:00","capacity":4,"booked":0},
+    {"id":"slot-008","workshopId":"ws-002","date":"2026-10-05","time":"16:00","capacity":4,"booked":1},
+    {"id":"slot-009","workshopId":"ws-001","date":"2026-10-05","time":"08:00","capacity":3,"booked":0},
+    {"id":"slot-010","workshopId":"ws-001","date":"2026-10-05","time":"09:00","capacity":3,"booked":2},
+    {"id":"slot-011","workshopId":"ws-001","date":"2026-10-05","time":"10:00","capacity":3,"booked":3},
+    {"id":"slot-012","workshopId":"ws-001","date":"2026-10-05","time":"13:00","capacity":3,"booked":1},
+    {"id":"slot-013","workshopId":"ws-001","date":"2026-10-05","time":"14:00","capacity":3,"booked":0}
+  ],
+  "bookings": [
+    {
+      "id": "SRV-20261005-0042",
+      "userId": "usr-001",
+      "workshopId": "ws-002",
+      "slotId": "slot-005",
+      "workshopSnapshot": {
+        "name": "Bengkel Mitra Auto Pondok Indah",
+        "address": "Jl. Metro Pondok Indah No. 12, Pondok Pinang, Jakarta Selatan",
+        "phone": "+62217650123"
+      },
+      "slotSnapshot": { "date": "2026-10-05", "time": "13:00" },
+      "status": "in_progress",
+      "statusHistory": [
+        {"status":"pending_confirmation","timestamp":"2026-10-04T14:32:11Z","note":"Booking baru dibuat","actorId":"system"},
+        {"status":"confirmed","timestamp":"2026-10-04T15:10:05Z","note":"Dikonfirmasi oleh bengkel","actorId":"ws-002"},
+        {"status":"in_progress","timestamp":"2026-10-05T13:05:22Z","note":"Kendaraan pertama mulai dikerjakan","actorId":"ws-002"}
+      ],
+      "totalEstimatedCost": 585000,
+      "totalEstimatedDuration": 210,
+      "notes": null,
+      "createdAt": "2026-10-04T14:32:11Z",
+      "updatedAt": "2026-10-05T13:05:22Z",
+      "confirmedAt": "2026-10-04T15:10:05Z",
+      "completedAt": null,
+      "vehicles": [
+        {
+          "id":"bv-001","bookingId":"SRV-20261005-0042","vehicleId":"vhc-001",
+          "vehicleSnapshot":{"plateNumber":"B 3421 SKY","alias":"Motor Harian","categoryId":"motor","brandName":"Honda","modelName":"Vario 160","year":2023},
+          "serviceTypeId":"periodic_service",
+          "serviceSnapshot":{"name":"Servis Berkala","basePrice":75000},
+          "selectedParts":[
+            {"partId":"oli_mesin_10w30_1l","name":"Oli Mesin 10W-30 1 Liter","brand":"Enduro","quantity":1,"unitPrice":45000,"subtotal":45000},
+            {"partId":"filter_udara_motor","name":"Filter Udara","brand":"Ori Honda","quantity":1,"unitPrice":35000,"subtotal":35000},
+            {"partId":"busi_ngk_standard","name":"Busi NGK Standard","brand":"NGK","quantity":1,"unitPrice":22000,"subtotal":22000}
+          ],
+          "complaint":"Tarikan motor terasa berat saat pagi hari. Mohon dicek juga kondisi CVT.",
+          "estimatedCost":177000,"estimatedDuration":60,
+          "serviceStatus":"quality_check",
+          "statusHistory":[
+            {"status":"waiting_arrival","timestamp":"2026-10-04T14:32:11Z","note":null,"actorId":"system"},
+            {"status":"arrived","timestamp":"2026-10-05T12:58:34Z","note":"Check-in di resepsionis","actorId":"ws-002"},
+            {"status":"being_inspected","timestamp":"2026-10-05T13:05:00Z","note":null,"actorId":"ws-002"},
+            {"status":"in_service","timestamp":"2026-10-05T13:15:22Z","note":"Dikerjakan oleh Pak Hendra","actorId":"ws-002"},
+            {"status":"quality_check","timestamp":"2026-10-05T14:10:00Z","note":"Pengecekan akhir","actorId":"ws-002"}
+          ],
+          "assignedMechanicName":"Hendra Setiawan","actualCost":null,"completedAt":null
+        },
+        {
+          "id":"bv-002","bookingId":"SRV-20261005-0042","vehicleId":"vhc-002",
+          "vehicleSnapshot":{"plateNumber":"B 8872 RKA","alias":"Mobil Keluarga","categoryId":"mobil","brandName":"Toyota","modelName":"Avanza","year":2020},
+          "serviceTypeId":"oil_change",
+          "serviceSnapshot":{"name":"Ganti Oli","basePrice":50000},
+          "selectedParts":[
+            {"partId":"oli_mesin_mobil_5w30_4l","name":"Oli Mesin 5W-30 4 Liter","brand":"Shell Helix HX7","quantity":1,"unitPrice":175000,"subtotal":175000},
+            {"partId":"filter_udara_mobil","name":"Filter Udara","brand":"Ori Pabrikan","quantity":1,"unitPrice":75000,"subtotal":75000}
+          ],
+          "complaint":null,
+          "estimatedCost":300000,"estimatedDuration":45,
+          "serviceStatus":"in_service",
+          "statusHistory":[
+            {"status":"waiting_arrival","timestamp":"2026-10-04T14:32:11Z","note":null,"actorId":"system"},
+            {"status":"arrived","timestamp":"2026-10-05T13:02:10Z","note":"Check-in","actorId":"ws-002"},
+            {"status":"in_service","timestamp":"2026-10-05T14:20:00Z","note":"Dikerjakan oleh Pak Wahyu","actorId":"ws-002"}
+          ],
+          "assignedMechanicName":"Wahyu Prasetyo","actualCost":null,"completedAt":null
+        },
+        {
+          "id":"bv-003","bookingId":"SRV-20261005-0042","vehicleId":"vhc-003",
+          "vehicleSnapshot":{"plateNumber":"B 5530 MNO","alias":"Motor Istri","categoryId":"motor","brandName":"Yamaha","modelName":"Mio M3 125","year":2019},
+          "serviceTypeId":"brake_service",
+          "serviceSnapshot":{"name":"Servis Rem","basePrice":50000},
+          "selectedParts":[
+            {"partId":"kampas_rem_depan","name":"Kampas Rem Depan","brand":"FBK","quantity":1,"unitPrice":65000,"subtotal":65000},
+            {"partId":"minyak_rem_dot4","name":"Minyak Rem DOT 4","brand":"Prestone","quantity":1,"unitPrice":35000,"subtotal":35000}
+          ],
+          "complaint":"Rem depan bunyi saat diinjak kuat. Sudah dirasakan sekitar 2 minggu terakhir.",
+          "estimatedCost":150000,"estimatedDuration":60,
+          "serviceStatus":"waiting_arrival",
+          "statusHistory":[
+            {"status":"waiting_arrival","timestamp":"2026-10-04T14:32:11Z","note":null,"actorId":"system"}
+          ],
+          "assignedMechanicName":null,"actualCost":null,"completedAt":null
+        }
+      ]
+    },
+    {
+      "id": "SRV-20260912-0017",
+      "userId": "usr-001",
+      "workshopId": "ws-001",
+      "slotId": "slot-prev-003",
+      "workshopSnapshot": {
+        "name": "AHASS Fatmawati Motor",
+        "address": "Jl. RS. Fatmawati No. 47, Cilandak Barat, Jakarta Selatan",
+        "phone": "+62215762345"
+      },
+      "slotSnapshot": { "date": "2026-09-12", "time": "09:00" },
+      "status": "completed",
+      "statusHistory": [],
+      "totalEstimatedCost": 177000,
+      "totalEstimatedDuration": 60,
+      "notes": null,
+      "createdAt": "2026-09-11T19:45:00Z",
+      "updatedAt": "2026-09-12T10:55:00Z",
+      "confirmedAt": "2026-09-11T20:03:00Z",
+      "completedAt": "2026-09-12T10:55:00Z",
+      "vehicles": [
+        {
+          "id":"bv-prev-001","bookingId":"SRV-20260912-0017","vehicleId":"vhc-001",
+          "vehicleSnapshot":{"plateNumber":"B 3421 SKY","alias":"Motor Harian","categoryId":"motor","brandName":"Honda","modelName":"Vario 160","year":2023},
+          "serviceTypeId":"periodic_service",
+          "serviceSnapshot":{"name":"Servis Berkala","basePrice":75000},
+          "selectedParts":[
+            {"partId":"oli_mesin_10w30_1l","name":"Oli Mesin 10W-30 1 Liter","brand":"Enduro","quantity":1,"unitPrice":45000,"subtotal":45000},
+            {"partId":"busi_ngk_standard","name":"Busi NGK Standard","brand":"NGK","quantity":1,"unitPrice":22000,"subtotal":22000},
+            {"partId":"filter_udara_motor","name":"Filter Udara","brand":"Ori Honda","quantity":1,"unitPrice":35000,"subtotal":35000}
+          ],
+          "complaint":null,
+          "estimatedCost":177000,"estimatedDuration":60,
+          "serviceStatus":"completed",
+          "statusHistory":[],
+          "assignedMechanicName":"Doni Santoso","actualCost":177000,
+          "completedAt":"2026-09-12T10:55:00Z"
+        }
+      ]
+    }
+  ]
+}

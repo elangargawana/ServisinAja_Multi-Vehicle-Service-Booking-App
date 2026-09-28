@@ -1,0 +1,4 @@
+[
+  { "id": "motor", "label": "Motor", "icon": "ic_motor" },
+  { "id": "mobil", "label": "Mobil", "icon": "ic_mobil" }
+]

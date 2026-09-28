@@ -1,0 +1,39 @@
+{
+  "user": {
+    "id": "usr-001",
+    "name": "Rendra Kusuma",
+    "email": "rendra.kusuma@gmail.com",
+    "phone": "+6281287654321",
+    "avatarUrl": null,
+    "createdAt": "2025-03-15T08:00:00Z"
+  },
+  "vehicles": [
+    {
+      "id": "vhc-001", "userId": "usr-001",
+      "alias": "Motor Harian", "plateNumber": "B 3421 SKY",
+      "categoryId": "motor", "brandId": "honda", "modelId": "honda_vario_160",
+      "brandName": "Honda", "modelName": "Vario 160",
+      "year": 2023, "color": "Hitam", "imageUrl": null,
+      "lastServiceDate": "2026-07-12T00:00:00Z", "odometer": 14500,
+      "createdAt": "2025-03-15T08:30:00Z"
+    },
+    {
+      "id": "vhc-002", "userId": "usr-001",
+      "alias": "Mobil Keluarga", "plateNumber": "B 8872 RKA",
+      "categoryId": "mobil", "brandId": "toyota", "modelId": "toyota_avanza",
+      "brandName": "Toyota", "modelName": "Avanza",
+      "year": 2020, "color": "Putih", "imageUrl": null,
+      "lastServiceDate": "2026-05-20T00:00:00Z", "odometer": 42000,
+      "createdAt": "2025-03-15T08:35:00Z"
+    },
+    {
+      "id": "vhc-003", "userId": "usr-001",
+      "alias": "Motor Istri", "plateNumber": "B 5530 MNO",
+      "categoryId": "motor", "brandId": "yamaha", "modelId": "yamaha_mio_m3",
+      "brandName": "Yamaha", "modelName": "Mio M3 125",
+      "year": 2019, "color": "Biru", "imageUrl": null,
+      "lastServiceDate": "2026-04-03T00:00:00Z", "odometer": 28300,
+      "createdAt": "2025-05-01T10:00:00Z"
+    }
+  ]
+}

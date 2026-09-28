@@ -1,0 +1,8 @@
+[
+  { "id": "honda",    "name": "Honda",    "logoUrl": "assets/icons/brand_honda.svg",    "categories": ["motor","mobil"] },
+  { "id": "yamaha",   "name": "Yamaha",   "logoUrl": "assets/icons/brand_yamaha.svg",   "categories": ["motor"] },
+  { "id": "suzuki",   "name": "Suzuki",   "logoUrl": "assets/icons/brand_suzuki.svg",   "categories": ["motor","mobil"] },
+  { "id": "toyota",   "name": "Toyota",   "logoUrl": "assets/icons/brand_toyota.svg",   "categories": ["mobil"] },
+  { "id": "daihatsu", "name": "Daihatsu", "logoUrl": "assets/icons/brand_daihatsu.svg", "categories": ["mobil"] },
+  { "id": "kawasaki", "name": "Kawasaki", "logoUrl": "assets/icons/brand_kawasaki.svg", "categories": ["motor"] }
+]

@@ -1,0 +1,92 @@
+[
+  {
+    "id": "ws-001", "name": "AHASS Fatmawati Motor",
+    "address": "Jl. RS. Fatmawati No. 47, RT.1/RW.5, Cilandak Barat",
+    "district": "Cilandak, Jakarta Selatan", "city": "Jakarta Selatan",
+    "latitude": -6.2955, "longitude": 106.7940, "phone": "+62215762345",
+    "rating": 4.7, "reviewCount": 312, "photoUrls": [],
+    "openHours": [
+      {"dayOfWeek":1,"openTime":"08:00","closeTime":"17:00","isClosed":false},
+      {"dayOfWeek":2,"openTime":"08:00","closeTime":"17:00","isClosed":false},
+      {"dayOfWeek":3,"openTime":"08:00","closeTime":"17:00","isClosed":false},
+      {"dayOfWeek":4,"openTime":"08:00","closeTime":"17:00","isClosed":false},
+      {"dayOfWeek":5,"openTime":"08:00","closeTime":"17:00","isClosed":false},
+      {"dayOfWeek":6,"openTime":"08:00","closeTime":"14:00","isClosed":false},
+      {"dayOfWeek":7,"openTime":"00:00","closeTime":"00:00","isClosed":true}
+    ],
+    "services": ["periodic_service","tune_up","oil_change","brake_service","overhaul","other"],
+    "categories": ["motor"], "isActive": true
+  },
+  {
+    "id": "ws-002", "name": "Bengkel Mitra Auto Pondok Indah",
+    "address": "Jl. Metro Pondok Indah No. 12, Pondok Pinang",
+    "district": "Kebayoran Lama, Jakarta Selatan", "city": "Jakarta Selatan",
+    "latitude": -6.2672, "longitude": 106.7860, "phone": "+62217650123",
+    "rating": 4.5, "reviewCount": 187, "photoUrls": [],
+    "openHours": [
+      {"dayOfWeek":1,"openTime":"08:00","closeTime":"18:00","isClosed":false},
+      {"dayOfWeek":2,"openTime":"08:00","closeTime":"18:00","isClosed":false},
+      {"dayOfWeek":3,"openTime":"08:00","closeTime":"18:00","isClosed":false},
+      {"dayOfWeek":4,"openTime":"08:00","closeTime":"18:00","isClosed":false},
+      {"dayOfWeek":5,"openTime":"08:00","closeTime":"18:00","isClosed":false},
+      {"dayOfWeek":6,"openTime":"09:00","closeTime":"15:00","isClosed":false},
+      {"dayOfWeek":7,"openTime":"00:00","closeTime":"00:00","isClosed":true}
+    ],
+    "services": ["periodic_service","tune_up","oil_change","brake_service","overhaul","other"],
+    "categories": ["motor","mobil"], "isActive": true
+  },
+  {
+    "id": "ws-003", "name": "Auto2000 Cilandak",
+    "address": "Jl. TB Simatupang Kav. 30, Cilandak",
+    "district": "Cilandak, Jakarta Selatan", "city": "Jakarta Selatan",
+    "latitude": -6.3012, "longitude": 106.8095, "phone": "+62215012500",
+    "rating": 4.6, "reviewCount": 489, "photoUrls": [],
+    "openHours": [
+      {"dayOfWeek":1,"openTime":"07:30","closeTime":"17:00","isClosed":false},
+      {"dayOfWeek":2,"openTime":"07:30","closeTime":"17:00","isClosed":false},
+      {"dayOfWeek":3,"openTime":"07:30","closeTime":"17:00","isClosed":false},
+      {"dayOfWeek":4,"openTime":"07:30","closeTime":"17:00","isClosed":false},
+      {"dayOfWeek":5,"openTime":"07:30","closeTime":"17:00","isClosed":false},
+      {"dayOfWeek":6,"openTime":"08:00","closeTime":"14:00","isClosed":false},
+      {"dayOfWeek":7,"openTime":"00:00","closeTime":"00:00","isClosed":true}
+    ],
+    "services": ["periodic_service","tune_up","oil_change","brake_service","overhaul","other"],
+    "categories": ["mobil"], "isActive": true
+  },
+  {
+    "id": "ws-004", "name": "Yamaha Authorized Service Depok",
+    "address": "Jl. Margonda Raya No. 154, Beji",
+    "district": "Beji, Depok", "city": "Depok",
+    "latitude": -6.3800, "longitude": 106.8307, "phone": "+62217776543",
+    "rating": 4.4, "reviewCount": 223, "photoUrls": [],
+    "openHours": [
+      {"dayOfWeek":1,"openTime":"08:00","closeTime":"17:00","isClosed":false},
+      {"dayOfWeek":2,"openTime":"08:00","closeTime":"17:00","isClosed":false},
+      {"dayOfWeek":3,"openTime":"08:00","closeTime":"17:00","isClosed":false},
+      {"dayOfWeek":4,"openTime":"08:00","closeTime":"17:00","isClosed":false},
+      {"dayOfWeek":5,"openTime":"08:00","closeTime":"17:00","isClosed":false},
+      {"dayOfWeek":6,"openTime":"08:00","closeTime":"13:00","isClosed":false},
+      {"dayOfWeek":7,"openTime":"00:00","closeTime":"00:00","isClosed":true}
+    ],
+    "services": ["periodic_service","tune_up","oil_change","brake_service","other"],
+    "categories": ["motor"], "isActive": true
+  },
+  {
+    "id": "ws-005", "name": "Bengkel Amanah Bekasi Timur",
+    "address": "Jl. Ahmad Yani No. 88, Bekasi Timur",
+    "district": "Bekasi Timur, Bekasi", "city": "Bekasi",
+    "latitude": -6.2396, "longitude": 107.0013, "phone": "+62218821234",
+    "rating": 4.3, "reviewCount": 156, "photoUrls": [],
+    "openHours": [
+      {"dayOfWeek":1,"openTime":"08:00","closeTime":"17:30","isClosed":false},
+      {"dayOfWeek":2,"openTime":"08:00","closeTime":"17:30","isClosed":false},
+      {"dayOfWeek":3,"openTime":"08:00","closeTime":"17:30","isClosed":false},
+      {"dayOfWeek":4,"openTime":"08:00","closeTime":"17:30","isClosed":false},
+      {"dayOfWeek":5,"openTime":"08:00","closeTime":"17:30","isClosed":false},
+      {"dayOfWeek":6,"openTime":"08:00","closeTime":"13:00","isClosed":false},
+      {"dayOfWeek":7,"openTime":"08:00","closeTime":"12:00","isClosed":false}
+    ],
+    "services": ["periodic_service","tune_up","oil_change","brake_service","overhaul","other"],
+    "categories": ["motor","mobil"], "isActive": true
+  }
+]
