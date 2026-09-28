@@ -69,6 +69,15 @@ class _BookingDetailView extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
+        leading: BackButton(
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              context.goNamed(RouteConstants.nameHome);
+            }
+          },
+        ),
         title: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -647,17 +656,21 @@ class _VehicleTrackingCardState extends State<_VehicleTrackingCard> {
                               ),
                             ),
                             const SizedBox(width: AppSpacing.xs),
-                            Text(
-                              v.serviceSnapshot.name,
-                              style: AppTypography.bodySmall,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
+                            Expanded(
+                              child: Text(
+                                v.serviceSnapshot.name,
+                                style: AppTypography.bodySmall,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
                           ],
                         ),
                       ],
                     ),
                   ),
+
+                  const SizedBox(width: AppSpacing.xs),
 
                   // Status label
                   Column(

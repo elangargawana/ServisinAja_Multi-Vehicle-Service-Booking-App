@@ -33,6 +33,24 @@ class WorkshopListScreen extends ConsumerWidget {
       backgroundColor: AppColors.background,
       appBar: AppBar(
         title: const Text('Pilih Bengkel'),
+        leading: BackButton(
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            } else if (vehicleCount > 0) {
+              context.goNamed(RouteConstants.nameGarage);
+            } else {
+              context.goNamed(RouteConstants.nameHome);
+            }
+          },
+        ),
+        actions: [
+          IconButton(
+            tooltip: 'Ke Beranda',
+            icon: const Icon(Icons.home_outlined),
+            onPressed: () => context.goNamed(RouteConstants.nameHome),
+          ),
+        ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(64),
           child: Padding(

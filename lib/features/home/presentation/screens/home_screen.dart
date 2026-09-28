@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:servis_aja/core/constants/asset_constants.dart';
 import 'package:servis_aja/core/constants/route_constants.dart';
 import 'package:servis_aja/core/theme/app_colors.dart';
 import 'package:servis_aja/core/theme/app_radius.dart';
@@ -51,22 +52,52 @@ class HomeScreen extends ConsumerWidget {
 class _HomeAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SliverAppBar(
-      expandedHeight: 140,
-      floating: true,
-      pinned: false,
-      backgroundColor: Colors.transparent,
-      flexibleSpace: FlexibleSpaceBar(
-        background: Container(
-          decoration: const BoxDecoration(gradient: AppColors.heroGradient),
-          child: SafeArea(
+    return SliverToBoxAdapter(
+      child: Container(
+        decoration: const BoxDecoration(gradient: AppColors.heroGradient),
+        child: Stack(
+          children: [
+            // Background image with cover fit & graceful fallback chain
+            Positioned.fill(
+              child: Image.network(
+                AssetConstants.workshopHeaderNetworkUrl,
+                fit: BoxFit.cover,
+                errorBuilder: (_, __, ___) => Image.asset(
+                  AssetConstants.workshopHeaderBg,
+                  fit: BoxFit.cover,
+                  errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+                ),
+              ),
+            ),
+            // Gradient overlay for automotive brand look & high text contrast
+            Positioned.fill(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.black.withValues(alpha: 0.35),
+                      AppColors.primaryDark.withValues(alpha: 0.60),
+                      const Color(0xFF381000).withValues(alpha: 0.82),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          // Content
+          SafeArea(
+            bottom: false,
             child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppSpacing.pageHorizontal,
-                vertical: AppSpacing.md,
+              padding: const EdgeInsets.fromLTRB(
+                AppSpacing.pageHorizontal,
+                AppSpacing.md,
+                AppSpacing.pageHorizontal,
+                AppSpacing.lg,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Row(
                     children: [
@@ -89,19 +120,21 @@ class _HomeAppBar extends StatelessWidget {
                             Text(
                               'Selamat datang,',
                               style: AppTypography.bodySmall.copyWith(
-                                color: AppColors.white.withValues(alpha: 0.7),
+                                color: AppColors.white.withValues(alpha: 0.8),
                               ),
                             ),
                             Text(
                               'Rendra Kusuma',
                               style: AppTypography.titleMedium.copyWith(
                                 color: AppColors.white,
+                                fontWeight: FontWeight.w700,
                               ),
                             ),
                           ],
                         ),
                       ),
                       IconButton(
+                        tooltip: 'Notifikasi',
                         onPressed: () {},
                         icon: const Icon(
                           Icons.notifications_outlined,
@@ -116,13 +149,21 @@ class _HomeAppBar extends StatelessWidget {
                     style: AppTypography.displaySmall.copyWith(
                       color: AppColors.white,
                       height: 1.2,
+                      shadows: const [
+                        Shadow(
+                          color: Colors.black38,
+                          offset: Offset(0, 1),
+                          blurRadius: 4,
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
             ),
           ),
-        ),
+        ],
+      ),
       ),
     );
   }

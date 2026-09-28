@@ -36,6 +36,8 @@ flutter:
 
 
   assets:
+    - assets/images/
+    - assets/images/workshop_header_bg.jpg
     - assets/images/illustrations/
     - assets/animations/
     - assets/icons/

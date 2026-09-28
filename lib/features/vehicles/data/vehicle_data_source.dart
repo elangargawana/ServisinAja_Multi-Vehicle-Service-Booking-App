@@ -7,13 +7,19 @@ import 'package:servis_aja/features/vehicles/domain/vehicle.dart';
 /// Loads vehicle reference data and user garage from JSON assets.
 class VehicleDataSource {
   List<Vehicle>? _inMemoryVehicles;
+  bool _hasLoadedMock = false;
 
   Future<List<Vehicle>> fetchUserVehicles() async {
-    if (_inMemoryVehicles == null) {
+    if (!_hasLoadedMock) {
       final json = await rootBundle.loadString(AssetConstants.mockUserProfile);
       final data = jsonDecode(json) as Map<String, dynamic>;
       final list = data['vehicles'] as List<dynamic>;
-      _inMemoryVehicles = list.map(_vehicleFromJson).toList();
+      final mockList = list.map(_vehicleFromJson).toList();
+      _inMemoryVehicles = [
+        ...?_inMemoryVehicles,
+        ...mockList,
+      ];
+      _hasLoadedMock = true;
     }
     return List.unmodifiable(_inMemoryVehicles!);
   }

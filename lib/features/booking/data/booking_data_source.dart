@@ -12,13 +12,19 @@ import 'package:servis_aja/features/booking/domain/service_type.dart';
 /// Loads booking history and service type / spare part reference data.
 class BookingDataSource {
   List<Booking>? _inMemoryBookings;
+  bool _hasLoadedMock = false;
 
   Future<List<Booking>> fetchBookings(String userId) async {
-    if (_inMemoryBookings == null) {
+    if (!_hasLoadedMock) {
       final json = await rootBundle.loadString(AssetConstants.mockBookings);
       final data = jsonDecode(json) as Map<String, dynamic>;
       final list = data['bookings'] as List<dynamic>;
-      _inMemoryBookings = list.map(_bookingFromJson).toList();
+      final mockList = list.map(_bookingFromJson).toList();
+      _inMemoryBookings = [
+        ...?_inMemoryBookings,
+        ...mockList,
+      ];
+      _hasLoadedMock = true;
     }
     return _inMemoryBookings!
         .where((b) => b.userId == userId)

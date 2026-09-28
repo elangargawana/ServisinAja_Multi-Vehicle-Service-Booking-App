@@ -146,7 +146,18 @@ class BookingVehicle extends Equatable {
       );
 
   @override
-  List<Object?> get props => [id];
+  List<Object?> get props => [
+        id,
+        bookingId,
+        vehicleId,
+        serviceTypeId,
+        serviceStatus,
+        selectedParts,
+        estimatedCost,
+        actualCost,
+        assignedMechanicName,
+        completedAt,
+      ];
 }
 
 // ── Booking ────────────────────────────────────────────────────────────────
@@ -194,5 +205,17 @@ class Booking extends Equatable {
       vehicles.every((v) => v.serviceStatus == ServiceStatus.completed);
 
   @override
-  List<Object?> get props => [id];
+  List<Object?> get props => [
+        id,
+        userId,
+        workshopId,
+        slotId,
+        status,
+        vehicles,
+        totalEstimatedCost,
+        totalEstimatedDuration,
+        updatedAt,
+        confirmedAt,
+        completedAt,
+      ];
 }

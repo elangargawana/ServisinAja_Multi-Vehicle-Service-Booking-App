@@ -41,6 +41,15 @@ class _BookingReviewScreenState extends ConsumerState<BookingReviewScreen> {
       backgroundColor: AppColors.background,
       appBar: AppBar(
         title: const Text('Ringkasan Booking'),
+        leading: BackButton(
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              context.goNamed(RouteConstants.nameSchedule);
+            }
+          },
+        ),
         actions: [
           // Indicator: all checks pass
           Padding(

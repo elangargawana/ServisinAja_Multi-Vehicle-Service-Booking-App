@@ -51,7 +51,18 @@ class ScheduleScreen extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(title: const Text('Pilih Jadwal')),
+      appBar: AppBar(
+        title: const Text('Pilih Jadwal'),
+        leading: BackButton(
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              context.goNamed(RouteConstants.nameWorkshopList);
+            }
+          },
+        ),
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

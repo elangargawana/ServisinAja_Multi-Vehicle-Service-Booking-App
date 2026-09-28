@@ -4,10 +4,16 @@
 /// All asset references must go through this class — no string literals in widgets.
 abstract final class AssetConstants {
   // ── Base paths ────────────────────────────────────────────────────
+  static const String _images = 'assets/images';
   static const String _illustrations = 'assets/images/illustrations';
   static const String _icons = 'assets/icons';
   static const String _animations = 'assets/animations';
   static const String _mockData = 'assets/mock_data';
+
+  // ── Header Background ──────────────────────────────────────────────
+  static const String workshopHeaderBg = '$_images/workshop_header_bg.jpg';
+  static const String workshopHeaderNetworkUrl =
+      'https://images.unsplash.com/photo-1615906655593-ad0386982a0f?w=1200&auto=format&fit=crop&q=80';
 
   // ── Illustrations ─────────────────────────────────────────────────
   static const String emptyGarage = '$_illustrations/empty_garage.svg';

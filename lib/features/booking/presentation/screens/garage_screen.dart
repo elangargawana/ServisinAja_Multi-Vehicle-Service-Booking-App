@@ -159,8 +159,16 @@ class GarageScreen extends ConsumerWidget {
   }
 
   void _handleClose(BuildContext context, WidgetRef ref, BookingSession session) {
+    void dismiss() {
+      if (context.canPop()) {
+        context.pop();
+      } else {
+        context.goNamed(RouteConstants.nameHome);
+      }
+    }
+
     if (session.vehicleConfigs.isEmpty) {
-      context.pop();
+      dismiss();
       return;
     }
     showDialog<bool>(
@@ -185,7 +193,7 @@ class GarageScreen extends ConsumerWidget {
     ).then((confirmed) {
       if (confirmed == true && context.mounted) {
         ref.read(bookingSessionProvider.notifier).resetSession();
-        context.pop();
+        dismiss();
       }
     });
   }

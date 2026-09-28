@@ -161,6 +161,7 @@ class _SparePartSelectionSheetState
                     ),
                   ),
                   IconButton(
+                    tooltip: 'Tutup',
                     onPressed: () => Navigator.pop(context, _selections),
                     icon: const Icon(Icons.close_rounded),
                   ),

@@ -70,6 +70,15 @@ class _VehicleConfigScreenState extends ConsumerState<VehicleConfigScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
+        leading: BackButton(
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              context.goNamed(RouteConstants.nameGarage);
+            }
+          },
+        ),
         title: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

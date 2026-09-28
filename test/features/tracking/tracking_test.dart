@@ -163,4 +163,36 @@ void main() {
       expect(fullSlot.hasCapacityFor(1), isFalse);
     });
   });
+
+  group('Booking and BookingVehicle equality tests', () {
+    test('BookingVehicle correctly identifies differences when serviceStatus changes', () {
+      final now = DateTime.now();
+      final vehicle1 = BookingVehicle(
+        id: 'bv-001',
+        bookingId: 'SRV-TEST',
+        vehicleId: 'vhc-001',
+        vehicleSnapshot: const VehicleSnapshot(
+          plateNumber: 'B 1234 ABC',
+          categoryId: 'motor',
+          brandName: 'Honda',
+          modelName: 'Vario 160',
+        ),
+        serviceTypeId: 'periodic_service',
+        serviceSnapshot: const ServiceSnapshot(name: 'Servis Berkala', basePrice: 75000),
+        selectedParts: const [],
+        estimatedCost: 75000,
+        estimatedDuration: 60,
+        serviceStatus: ServiceStatus.waitingArrival,
+        statusHistory: [
+          StatusEvent(status: 'waiting_arrival', timestamp: now),
+        ],
+      );
+
+      final vehicleUpdated = vehicle1.copyWith(serviceStatus: ServiceStatus.inService);
+
+      // Same ID, but different status -> must NOT be equal
+      expect(vehicle1 == vehicleUpdated, isFalse);
+      expect(vehicle1.id == vehicleUpdated.id, isTrue);
+    });
+  });
 }

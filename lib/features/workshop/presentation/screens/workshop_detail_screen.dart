@@ -43,6 +43,16 @@ class WorkshopDetailScreen extends ConsumerWidget {
               SliverAppBar(
                 expandedHeight: 200,
                 pinned: true,
+                leading: BackButton(
+                  color: AppColors.white,
+                  onPressed: () {
+                    if (context.canPop()) {
+                      context.pop();
+                    } else {
+                      context.goNamed(RouteConstants.nameWorkshopList);
+                    }
+                  },
+                ),
                 flexibleSpace: FlexibleSpaceBar(
                   title: Text(
                     workshop.name,
