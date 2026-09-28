@@ -42,3 +42,9 @@ final canAddMoreVehiclesProvider = Provider<bool>((ref) {
 final vehicleCountProvider = Provider<int>((ref) {
   return ref.watch(bookingSessionProvider).vehicleConfigs.length;
 });
+
+/// Set of vehicle category IDs present in the current session (e.g. {'motor'}, {'mobil'}).
+final sessionVehicleCategoriesProvider = Provider<Set<String>>((ref) {
+  final session = ref.watch(bookingSessionProvider);
+  return session.vehicleConfigs.map((c) => c.vehicle.categoryId).toSet();
+});

@@ -16,6 +16,20 @@ class BookingSessionNotifier extends StateNotifier<BookingSession> {
   // ── Workshop & Schedule ──────────────────────────────────────────
 
   void setWorkshop(Workshop workshop) {
+    // Validasi apakah bengkel mendukung seluruh kategori kendaraan yang sudah dipilih
+    for (final config in state.vehicleConfigs) {
+      if (!workshop.supportsCategory(config.vehicle.categoryId)) {
+        final wsCat = workshop.categories
+            .map((c) => c == 'mobil' ? 'Mobil' : 'Motor')
+            .join(' & ');
+        final vCat = config.vehicle.isMobil ? 'Mobil' : 'Motor';
+        throw BusinessRuleException(
+          message:
+              '${workshop.name} hanya melayani $wsCat, tidak melayani $vCat (${config.vehicle.displayName}).',
+        );
+      }
+    }
+
     state = state.copyWith(
       selectedWorkshop: workshop,
       clearSlot: true, // slot must be re-selected for new workshop
@@ -38,6 +52,18 @@ class BookingSessionNotifier extends StateNotifier<BookingSession> {
     if (state.vehicleAlreadyAdded(vehicle.id)) {
       throw DuplicateException(
         message: 'Kendaraan ${vehicle.displayName} sudah ditambahkan.',
+      );
+    }
+    // Jika bengkel sudah dipilih sebelumnya, pastikan kendaraan ini didukung oleh bengkel tersebut
+    if (state.selectedWorkshop != null &&
+        !state.selectedWorkshop!.supportsCategory(vehicle.categoryId)) {
+      final wsCat = state.selectedWorkshop!.categories
+          .map((c) => c == 'mobil' ? 'Mobil' : 'Motor')
+          .join(' & ');
+      final vCat = vehicle.isMobil ? 'Mobil' : 'Motor';
+      throw BusinessRuleException(
+        message:
+            '${state.selectedWorkshop!.name} hanya melayani $wsCat, tidak dapat menambahkan $vCat.',
       );
     }
     final updated = [...state.vehicleConfigs, VehicleConfig(vehicle: vehicle)];

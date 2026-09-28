@@ -53,7 +53,7 @@ class VehicleCard extends StatelessWidget {
         color: Colors.transparent,
         borderRadius: AppRadius.cardRadius,
         child: InkWell(
-          onTap: isDisabled ? null : onTap,
+          onTap: onTap,
           borderRadius: AppRadius.cardRadius,
           splashColor: AppColors.primary.withValues(alpha: 0.06),
           highlightColor: AppColors.primary.withValues(alpha: 0.03),

@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:servis_aja/core/constants/asset_constants.dart';
 import 'package:servis_aja/core/constants/route_constants.dart';
+import 'package:servis_aja/core/errors/app_exception.dart';
 import 'package:servis_aja/core/theme/app_colors.dart';
 import 'package:servis_aja/core/theme/app_radius.dart';
 import 'package:servis_aja/core/theme/app_shadows.dart';
@@ -15,19 +17,51 @@ import 'package:servis_aja/shared/widgets/layout/sticky_bottom_bar.dart';
 import 'package:servis_aja/shared/widgets/states/error_state_widget.dart';
 import 'package:servis_aja/shared/widgets/states/loading_shimmer.dart';
 
-class WorkshopDetailScreen extends ConsumerWidget {
+class WorkshopDetailScreen extends ConsumerStatefulWidget {
   const WorkshopDetailScreen({super.key, required this.workshopId});
   final String workshopId;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<WorkshopDetailScreen> createState() =>
+      _WorkshopDetailScreenState();
+}
+
+class _WorkshopDetailScreenState extends ConsumerState<WorkshopDetailScreen> {
+  late final ScrollController _scrollController;
+  bool _isCollapsed = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController()..addListener(_onScroll);
+  }
+
+  void _onScroll() {
+    if (!_scrollController.hasClients) return;
+    final isCollapsed = _scrollController.offset > 110;
+    if (isCollapsed != _isCollapsed) {
+      setState(() {
+        _isCollapsed = isCollapsed;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final asyncWorkshops = ref.watch(workshopsProvider);
     final session = ref.watch(bookingSessionProvider);
-    final isAlreadySelected = session.selectedWorkshop?.id == workshopId;
+    final isAlreadySelected = session.selectedWorkshop?.id == widget.workshopId;
 
     return asyncWorkshops.when(
       data: (workshops) {
-        final workshop = workshops.where((w) => w.id == workshopId).firstOrNull;
+        final workshop =
+            workshops.where((w) => w.id == widget.workshopId).firstOrNull;
         if (workshop == null) {
           return Scaffold(
             appBar: AppBar(title: const Text('Bengkel')),
@@ -35,45 +69,115 @@ class WorkshopDetailScreen extends ConsumerWidget {
           );
         }
 
+        final incompatibleConfigs = session.vehicleConfigs
+            .where((c) => !workshop.supportsCategory(c.vehicle.categoryId))
+            .toList();
+        final isCompatible = incompatibleConfigs.isEmpty;
+        final unsupportedLabels = incompatibleConfigs
+            .map((c) => c.vehicle.isMobil ? 'Mobil' : 'Motor')
+            .toSet()
+            .join(' & ');
+        final workshopLabels = workshop.categories
+            .map((c) => c == 'mobil' ? 'Mobil' : 'Motor')
+            .join(' & ');
+
         return Scaffold(
           backgroundColor: AppColors.background,
           body: CustomScrollView(
+            controller: _scrollController,
             slivers: [
               // ── Sliver AppBar with photo ───────────────────
               SliverAppBar(
                 expandedHeight: 200,
                 pinned: true,
-                leading: BackButton(
-                  color: AppColors.white,
-                  onPressed: () {
-                    if (context.canPop()) {
-                      context.pop();
-                    } else {
-                      context.goNamed(RouteConstants.nameWorkshopList);
-                    }
-                  },
-                ),
-                flexibleSpace: FlexibleSpaceBar(
-                  title: Text(
-                    workshop.name,
-                    style: AppTypography.titleMedium.copyWith(
-                      color: AppColors.white,
-                      shadows: [
-                        Shadow(
-                          color: Colors.black54,
-                          blurRadius: 8,
-                        ),
-                      ],
+                backgroundColor:
+                    _isCollapsed ? AppColors.surface : AppColors.primary,
+                elevation: _isCollapsed ? 1 : 0,
+                shadowColor: Colors.black12,
+                surfaceTintColor: Colors.transparent,
+                leading: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Material(
+                    color: _isCollapsed
+                        ? Colors.transparent
+                        : Colors.black.withValues(alpha: 0.35),
+                    shape: const CircleBorder(),
+                    child: InkWell(
+                      customBorder: const CircleBorder(),
+                      onTap: () {
+                        if (context.canPop()) {
+                          context.pop();
+                        } else {
+                          context.goNamed(RouteConstants.nameWorkshopList);
+                        }
+                      },
+                      child: Icon(
+                        Icons.arrow_back_rounded,
+                        color: _isCollapsed
+                            ? AppColors.textPrimary
+                            : AppColors.white,
+                        size: 20,
+                      ),
                     ),
                   ),
-                  background: Container(
-                    decoration: const BoxDecoration(
-                      gradient: AppColors.brandGradient,
+                ),
+                flexibleSpace: FlexibleSpaceBar(
+                  centerTitle: true,
+                  titlePadding: const EdgeInsetsDirectional.only(
+                    start: 56,
+                    end: 56,
+                    bottom: 16,
+                  ),
+                  title: Text(
+                    workshop.name,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppTypography.titleMedium.copyWith(
+                      color: _isCollapsed
+                          ? AppColors.textPrimary
+                          : AppColors.white,
+                      fontWeight: FontWeight.w700,
+                      shadows: _isCollapsed
+                          ? null
+                          : const [
+                              Shadow(
+                                color: Colors.black87,
+                                blurRadius: 8,
+                              ),
+                            ],
                     ),
-                    child: const Center(
-                      child: Icon(Icons.handyman_rounded,
-                          size: 72, color: AppColors.white),
-                    ),
+                  ),
+                  background: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      Image.asset(
+                        AssetConstants.workshopHeaderBg,
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, __, ___) => Container(
+                          decoration: const BoxDecoration(
+                            gradient: AppColors.brandGradient,
+                          ),
+                          child: const Center(
+                            child: Icon(Icons.handyman_rounded,
+                                size: 72, color: AppColors.white),
+                          ),
+                        ),
+                      ),
+                      DecoratedBox(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.black.withValues(alpha: 0.45),
+                              Colors.transparent,
+                              Colors.black.withValues(alpha: 0.75),
+                            ],
+                            stops: const [0.0, 0.45, 1.0],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -89,37 +193,97 @@ class WorkshopDetailScreen extends ConsumerWidget {
                     _OpeningHoursSection(workshop: workshop),
                     // Services
                     _ServicesSection(workshop: workshop),
-                    const SizedBox(height: 120),
+                    const SizedBox(height: 140),
                   ],
                 ),
               ),
             ],
           ),
           bottomNavigationBar: StickyBottomBar(
-            child: SizedBox(
-              width: double.infinity,
-              child: FilledButton.icon(
-                onPressed: isAlreadySelected
-                    ? null
-                    : () => _selectWorkshop(context, ref, workshop),
-                icon: Icon(
-                  isAlreadySelected
-                      ? Icons.check_rounded
-                      : Icons.location_on_rounded,
-                  size: 18,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (!isCompatible) ...[
+                  Container(
+                    width: double.infinity,
+                    margin: const EdgeInsets.only(bottom: AppSpacing.sm),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.md,
+                      vertical: AppSpacing.sm,
+                    ),
+                    decoration: BoxDecoration(
+                      color: AppColors.errorContainer,
+                      borderRadius: BorderRadius.circular(AppRadius.r8),
+                      border: Border.all(
+                        color: AppColors.error.withValues(alpha: 0.3),
+                      ),
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Icon(
+                          Icons.cancel_rounded,
+                          color: AppColors.error,
+                          size: 20,
+                        ),
+                        const SizedBox(width: AppSpacing.sm),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Bengkel Tidak Sesuai Kendaraan',
+                                style: AppTypography.titleSmall.copyWith(
+                                  color: AppColors.onErrorContainer,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              const SizedBox(height: 2),
+                              Text(
+                                'Bengkel ini hanya melayani $workshopLabels. Pesananmu membutuhkan bengkel yang melayani $unsupportedLabels.',
+                                style: AppTypography.bodySmall.copyWith(
+                                  color: AppColors.onErrorContainer,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+                SizedBox(
+                  width: double.infinity,
+                  child: FilledButton.icon(
+                    onPressed: isCompatible
+                        ? () => _selectWorkshop(context, ref, workshop)
+                        : null,
+                    icon: Icon(
+                      !isCompatible
+                          ? Icons.block_rounded
+                          : isAlreadySelected
+                              ? Icons.arrow_forward_rounded
+                              : Icons.location_on_rounded,
+                      size: 18,
+                    ),
+                    label: Text(
+                      !isCompatible
+                          ? 'Tidak Melayani $unsupportedLabels (Hanya $workshopLabels)'
+                          : isAlreadySelected
+                              ? (session.vehicleConfigs.isEmpty
+                                  ? 'Pilih Bengkel & Tambah Kendaraan'
+                                  : 'Lanjut dengan Bengkel Ini')
+                              : session.vehicleConfigs.isEmpty
+                                  ? 'Pilih Bengkel & Tambah Kendaraan'
+                                  : 'Pilih Bengkel Ini',
+                    ),
+                    style: FilledButton.styleFrom(
+                      minimumSize:
+                          const Size(double.infinity, AppSpacing.buttonHeightLg),
+                    ),
+                  ),
                 ),
-                label: Text(
-                  isAlreadySelected
-                      ? 'Bengkel Ini Sudah Dipilih'
-                      : session.vehicleConfigs.isEmpty
-                          ? 'Pilih Bengkel & Tambah Kendaraan'
-                          : 'Pilih Bengkel Ini',
-                ),
-                style: FilledButton.styleFrom(
-                  minimumSize:
-                      const Size(double.infinity, AppSpacing.buttonHeightLg),
-                ),
-              ),
+              ],
             ),
           ),
         );
@@ -146,7 +310,20 @@ class WorkshopDetailScreen extends ConsumerWidget {
 
   void _selectWorkshop(
       BuildContext context, WidgetRef ref, Workshop workshop) {
-    ref.read(bookingSessionProvider.notifier).setWorkshop(workshop);
+    try {
+      ref.read(bookingSessionProvider.notifier).setWorkshop(workshop);
+    } on BusinessRuleException catch (e) {
+      ScaffoldMessenger.of(context)
+        ..clearSnackBars()
+        ..showSnackBar(
+          SnackBar(
+            content: Text(e.message),
+            backgroundColor: AppColors.error,
+          ),
+        );
+      return;
+    }
+
     final session = ref.read(bookingSessionProvider);
 
     if (session.vehicleConfigs.isEmpty) {

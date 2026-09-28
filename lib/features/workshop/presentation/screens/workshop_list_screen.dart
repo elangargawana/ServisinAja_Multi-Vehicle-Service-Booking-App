@@ -28,6 +28,7 @@ class WorkshopListScreen extends ConsumerWidget {
     final totalCost = ref.watch(totalEstimatedCostProvider);
     final totalDuration = ref.watch(totalEstimatedDurationProvider);
     final vehicleCount = ref.watch(vehicleCountProvider);
+    final requiredCategories = ref.watch(sessionVehicleCategoriesProvider);
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -107,7 +108,10 @@ class WorkshopListScreen extends ConsumerWidget {
                   itemCount: filtered.length,
                   separatorBuilder: (_, __) =>
                       const SizedBox(height: AppSpacing.cardGap),
-                  itemBuilder: (_, i) => _WorkshopCard(workshop: filtered[i]),
+                  itemBuilder: (_, i) => _WorkshopCard(
+                    workshop: filtered[i],
+                    requiredCategories: requiredCategories,
+                  ),
                 );
               },
               loading: () => _ShimmerWorkshopList(),
@@ -154,11 +158,22 @@ class _SearchBar extends StatelessWidget {
 // ── Workshop Card ─────────────────────────────────────────────────────────────
 
 class _WorkshopCard extends StatelessWidget {
-  const _WorkshopCard({required this.workshop});
+  const _WorkshopCard({
+    required this.workshop,
+    this.requiredCategories = const {},
+  });
   final Workshop workshop;
+  final Set<String> requiredCategories;
 
   @override
   Widget build(BuildContext context) {
+    final isCompatible = requiredCategories.isEmpty ||
+        requiredCategories.every((cat) => workshop.supportsCategory(cat));
+    final unsupported = requiredCategories
+        .where((cat) => !workshop.supportsCategory(cat))
+        .map((c) => c == 'mobil' ? 'Mobil' : 'Motor')
+        .toList();
+
     return GestureDetector(
       onTap: () => context.goNamed(
         RouteConstants.nameWorkshopDetail,
@@ -180,9 +195,16 @@ class _WorkshopCard extends StatelessWidget {
               child: Container(
                 height: 100,
                 width: double.infinity,
-                color: AppColors.primaryContainer,
-                child: const Icon(Icons.handyman_rounded,
-                    size: 48, color: AppColors.primary),
+                color: isCompatible
+                    ? AppColors.primaryContainer
+                    : AppColors.neutral200,
+                child: Icon(
+                  Icons.handyman_rounded,
+                  size: 48,
+                  color: isCompatible
+                      ? AppColors.primary
+                      : AppColors.neutral500,
+                ),
               ),
             ),
 
@@ -238,18 +260,79 @@ class _WorkshopCard extends StatelessWidget {
                   ),
                   const SizedBox(height: AppSpacing.xs),
 
-                  // Category chips
+                  // Category chips + compatibility badge
                   Wrap(
                     spacing: AppSpacing.xs,
-                    children: workshop.categories.map((cat) {
-                      return _CategoryPill(label: cat);
-                    }).toList(),
+                    runSpacing: AppSpacing.xs,
+                    children: [
+                      ...workshop.categories.map((cat) {
+                        return _CategoryPill(label: cat);
+                      }),
+                      if (requiredCategories.isNotEmpty) ...[
+                        if (!isCompatible)
+                          _CompatibilityPill(
+                            label: 'Tidak Melayani ${unsupported.join(' & ')}',
+                            isCompatible: false,
+                          )
+                        else
+                          const _CompatibilityPill(
+                            label: 'Cocok',
+                            isCompatible: true,
+                          ),
+                      ],
+                    ],
                   ),
                 ],
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _CompatibilityPill extends StatelessWidget {
+  const _CompatibilityPill({
+    required this.label,
+    required this.isCompatible,
+  });
+  final String label;
+  final bool isCompatible;
+
+  @override
+  Widget build(BuildContext context) {
+    final bg =
+        isCompatible ? AppColors.successContainer : AppColors.errorContainer;
+    final fg = isCompatible ? AppColors.successDark : AppColors.errorDark;
+
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.xs,
+        vertical: AppSpacing.xs2,
+      ),
+      decoration: BoxDecoration(
+        color: bg,
+        borderRadius: BorderRadius.circular(AppRadius.r4),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            isCompatible ? Icons.check_circle_rounded : Icons.cancel_rounded,
+            size: 11,
+            color: fg,
+          ),
+          const SizedBox(width: 3),
+          Text(
+            label,
+            style: AppTypography.labelSmall.copyWith(
+              color: fg,
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
       ),
     );
   }

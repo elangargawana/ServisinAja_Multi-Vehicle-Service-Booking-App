@@ -63,6 +63,47 @@ class VehicleSelectionScreen extends ConsumerWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // ── Selected workshop reminder banner (if workshop is already chosen) ──
+          if (session.selectedWorkshop != null)
+            Container(
+              margin: const EdgeInsets.fromLTRB(
+                AppSpacing.pageHorizontal,
+                AppSpacing.xs,
+                AppSpacing.pageHorizontal,
+                AppSpacing.sm,
+              ),
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppSpacing.md,
+                vertical: AppSpacing.sm,
+              ),
+              decoration: BoxDecoration(
+                color: AppColors.primaryContainer.withValues(alpha: 0.4),
+                borderRadius: AppRadius.cardRadius,
+                border: Border.all(
+                  color: AppColors.primary.withValues(alpha: 0.2),
+                ),
+              ),
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.info_outline_rounded,
+                    color: AppColors.primary,
+                    size: 18,
+                  ),
+                  const SizedBox(width: AppSpacing.sm),
+                  Expanded(
+                    child: Text(
+                      'Bengkel terpilih: ${session.selectedWorkshop!.name} (Hanya melayani ${session.selectedWorkshop!.categoryLabels.join(" & ")})',
+                      style: AppTypography.bodySmall.copyWith(
+                        color: AppColors.textPrimary,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
           // ── Filter chips ─────────────────────────────────────────
           _CategoryFilterBar(),
           const SizedBox(height: AppSpacing.xs),
@@ -184,19 +225,64 @@ class _VehicleList extends ConsumerWidget {
         }
         final v = vehicles[i];
         final isAlreadyAdded = session.vehicleAlreadyAdded(v.id);
+        final workshop = session.selectedWorkshop;
+        final isSupported =
+            workshop == null || workshop.supportsCategory(v.categoryId);
+        final isSlotExhausted = !canAdd && !isAlreadyAdded;
+        final isDisabled = isSlotExhausted || (!isAlreadyAdded && !isSupported);
 
         return VehicleCard(
           vehicle: v,
           isSelected: isAlreadyAdded,
-          isDisabled: !canAdd && !isAlreadyAdded,
-          onTap: () => _handleTap(context, ref, v, isAlreadyAdded),
+          isDisabled: isDisabled,
+          onTap: () => _handleTap(
+            context,
+            ref,
+            v,
+            isAlreadyAdded,
+            isSupported,
+            isSlotExhausted,
+          ),
           trailing: isAlreadyAdded
               ? _RemoveButton(
                   onRemove: () => ref
                       .read(bookingSessionProvider.notifier)
                       .removeVehicle(v.id),
                 )
-              : null,
+              : !isSupported
+                  ? Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppSpacing.xs,
+                        vertical: AppSpacing.xs2,
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppColors.errorContainer,
+                        borderRadius: BorderRadius.circular(AppRadius.r6),
+                        border: Border.all(
+                          color: AppColors.error.withValues(alpha: 0.3),
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(
+                            Icons.block_rounded,
+                            size: 13,
+                            color: AppColors.error,
+                          ),
+                          const SizedBox(width: 3),
+                          Text(
+                            'Tidak Cocok',
+                            style: AppTypography.labelSmall.copyWith(
+                              color: AppColors.error,
+                              fontSize: 10,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : null,
         );
       },
     );
@@ -207,10 +293,39 @@ class _VehicleList extends ConsumerWidget {
     WidgetRef ref,
     Vehicle vehicle,
     bool isAlreadyAdded,
+    bool isSupported,
+    bool isSlotExhausted,
   ) {
     if (isAlreadyAdded) {
       // Already added — remove it
       ref.read(bookingSessionProvider.notifier).removeVehicle(vehicle.id);
+      return;
+    }
+
+    if (!isSupported) {
+      final workshop = session.selectedWorkshop;
+      ScaffoldMessenger.of(context)
+        ..clearSnackBars()
+        ..showSnackBar(
+          SnackBar(
+            content: Text(
+              '${vehicle.displayName} (${vehicle.isMotor ? "Motor" : "Mobil"}) tidak dapat dipilih karena ${workshop?.name ?? "bengkel terpilih"} hanya melayani ${workshop?.categoryLabels.join(", ") ?? "kategori lain"}.',
+            ),
+            backgroundColor: AppColors.error,
+          ),
+        );
+      return;
+    }
+
+    if (isSlotExhausted) {
+      ScaffoldMessenger.of(context)
+        ..clearSnackBars()
+        ..showSnackBar(
+          const SnackBar(
+            content: Text('Maksimal 3 kendaraan telah dipilih.'),
+            backgroundColor: AppColors.warning,
+          ),
+        );
       return;
     }
 

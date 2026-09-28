@@ -213,6 +213,18 @@ class _BookingReviewScreenState extends ConsumerState<BookingReviewScreen> {
         '${unconfigured.join(", ")} belum dikonfigurasi.',
       );
     }
+    if (session.selectedWorkshop != null) {
+      final incompatible = session.vehicleConfigs
+          .where((c) =>
+              !session.selectedWorkshop!.supportsCategory(c.vehicle.categoryId))
+          .map((c) => c.vehicle.displayName)
+          .toList();
+      if (incompatible.isNotEmpty) {
+        errors.add(
+          '${incompatible.join(", ")} tidak didukung oleh ${session.selectedWorkshop!.name} (hanya melayani ${session.selectedWorkshop!.categoryLabels.join(", ")}).',
+        );
+      }
+    }
     return errors;
   }
 

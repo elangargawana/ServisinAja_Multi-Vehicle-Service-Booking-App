@@ -12,7 +12,21 @@
     {"id":"slot-010","workshopId":"ws-001","date":"2026-10-05","time":"09:00","capacity":3,"booked":2},
     {"id":"slot-011","workshopId":"ws-001","date":"2026-10-05","time":"10:00","capacity":3,"booked":3},
     {"id":"slot-012","workshopId":"ws-001","date":"2026-10-05","time":"13:00","capacity":3,"booked":1},
-    {"id":"slot-013","workshopId":"ws-001","date":"2026-10-05","time":"14:00","capacity":3,"booked":0}
+    {"id":"slot-013","workshopId":"ws-001","date":"2026-10-05","time":"14:00","capacity":3,"booked":0},
+    {"id":"slot-014","workshopId":"ws-001","date":"2026-09-29","time":"08:00","capacity":4,"booked":0},
+    {"id":"slot-015","workshopId":"ws-001","date":"2026-09-29","time":"09:00","capacity":4,"booked":1},
+    {"id":"slot-016","workshopId":"ws-001","date":"2026-09-29","time":"10:00","capacity":4,"booked":2},
+    {"id":"slot-017","workshopId":"ws-001","date":"2026-09-29","time":"11:00","capacity":4,"booked":0},
+    {"id":"slot-018","workshopId":"ws-001","date":"2026-09-29","time":"13:00","capacity":4,"booked":1},
+    {"id":"slot-019","workshopId":"ws-001","date":"2026-09-29","time":"14:00","capacity":4,"booked":0},
+    {"id":"slot-020","workshopId":"ws-001","date":"2026-09-29","time":"15:00","capacity":4,"booked":2},
+    {"id":"slot-021","workshopId":"ws-001","date":"2026-09-29","time":"16:00","capacity":4,"booked":0},
+    {"id":"slot-022","workshopId":"ws-001","date":"2026-09-30","time":"08:00","capacity":4,"booked":0},
+    {"id":"slot-023","workshopId":"ws-001","date":"2026-09-30","time":"09:00","capacity":4,"booked":1},
+    {"id":"slot-024","workshopId":"ws-001","date":"2026-09-30","time":"10:00","capacity":4,"booked":1},
+    {"id":"slot-025","workshopId":"ws-001","date":"2026-09-30","time":"13:00","capacity":4,"booked":0},
+    {"id":"slot-026","workshopId":"ws-001","date":"2026-09-30","time":"14:00","capacity":4,"booked":1},
+    {"id":"slot-027","workshopId":"ws-001","date":"2026-09-30","time":"15:00","capacity":4,"booked":0}
   ],
   "bookings": [
     {

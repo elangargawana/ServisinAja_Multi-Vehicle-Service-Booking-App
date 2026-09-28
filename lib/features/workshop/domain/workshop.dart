@@ -61,6 +61,12 @@ class Workshop extends Equatable {
   bool supportsCategory(String categoryId) => categories.contains(categoryId);
   bool supportsService(String serviceId) => serviceIds.contains(serviceId);
 
+  List<String> get categoryLabels => categories.map((c) {
+        if (c == 'motor') return 'Motor';
+        if (c == 'mobil') return 'Mobil';
+        return c;
+      }).toList();
+
   String get distanceLabel {
     if (distanceKm == null) return '';
     if (distanceKm! < 1) return '${(distanceKm! * 1000).round()} m';
