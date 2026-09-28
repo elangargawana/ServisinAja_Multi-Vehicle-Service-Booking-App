@@ -150,16 +150,20 @@ class _WorkshopDetailScreenState extends ConsumerState<WorkshopDetailScreen> {
                   background: Stack(
                     fit: StackFit.expand,
                     children: [
-                      Image.asset(
-                        AssetConstants.workshopHeaderBg,
+                      Image.network(
+                        AssetConstants.workshopHeaderNetworkUrl,
                         fit: BoxFit.cover,
-                        errorBuilder: (_, __, ___) => Container(
-                          decoration: const BoxDecoration(
-                            gradient: AppColors.brandGradient,
-                          ),
-                          child: const Center(
-                            child: Icon(Icons.handyman_rounded,
-                                size: 72, color: AppColors.white),
+                        errorBuilder: (_, __, ___) => Image.asset(
+                          AssetConstants.workshopHeaderBg,
+                          fit: BoxFit.cover,
+                          errorBuilder: (_, __, ___) => Container(
+                            decoration: const BoxDecoration(
+                              gradient: AppColors.brandGradient,
+                            ),
+                            child: const Center(
+                              child: Icon(Icons.handyman_rounded,
+                                  size: 72, color: AppColors.white),
+                            ),
                           ),
                         ),
                       ),
