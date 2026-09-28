@@ -581,15 +581,32 @@ class _WorkshopListTile extends StatelessWidget {
           ),
           child: Row(
             children: [
-              Container(
-                width: 48,
-                height: 48,
-                decoration: BoxDecoration(
-                  color: AppColors.primaryContainer,
-                  borderRadius: BorderRadius.circular(AppRadius.r8),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(AppRadius.r8),
+                child: SizedBox(
+                  width: 52,
+                  height: 52,
+                  child: Image.network(
+                    workshop.photoUrls.isNotEmpty
+                        ? workshop.photoUrls.first
+                        : AssetConstants.workshopHeaderNetworkUrl,
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, __, ___) => Image.asset(
+                      AssetConstants.workshopHeaderBg,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) => Container(
+                        color: AppColors.primaryContainer,
+                        child: const Center(
+                          child: Icon(
+                            Icons.handyman_rounded,
+                            size: 24,
+                            color: AppColors.primary,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-                child: const Icon(Icons.handyman_rounded,
-                    color: AppColors.primary),
               ),
               const SizedBox(width: AppSpacing.md),
               Expanded(
