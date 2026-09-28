@@ -151,7 +151,9 @@ class _WorkshopDetailScreenState extends ConsumerState<WorkshopDetailScreen> {
                     fit: StackFit.expand,
                     children: [
                       Image.network(
-                        AssetConstants.workshopHeaderNetworkUrl,
+                        workshop.photoUrls.isNotEmpty
+                            ? workshop.photoUrls.first
+                            : AssetConstants.workshopHeaderNetworkUrl,
                         fit: BoxFit.cover,
                         errorBuilder: (_, __, ___) => Image.asset(
                           AssetConstants.workshopHeaderBg,

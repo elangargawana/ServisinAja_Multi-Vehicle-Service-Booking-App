@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:servis_aja/core/constants/asset_constants.dart';
 import 'package:servis_aja/core/constants/route_constants.dart';
 import 'package:servis_aja/core/theme/app_colors.dart';
 import 'package:servis_aja/core/theme/app_radius.dart';
@@ -192,18 +193,43 @@ class _WorkshopCard extends StatelessWidget {
             ClipRRect(
               borderRadius: const BorderRadius.vertical(
                   top: Radius.circular(AppRadius.card)),
-              child: Container(
-                height: 100,
+              child: SizedBox(
+                height: 120,
                 width: double.infinity,
-                color: isCompatible
-                    ? AppColors.primaryContainer
-                    : AppColors.neutral200,
-                child: Icon(
-                  Icons.handyman_rounded,
-                  size: 48,
-                  color: isCompatible
-                      ? AppColors.primary
-                      : AppColors.neutral500,
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    Image.network(
+                      workshop.photoUrls.isNotEmpty
+                          ? workshop.photoUrls.first
+                          : AssetConstants.workshopHeaderNetworkUrl,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) => Image.asset(
+                        AssetConstants.workshopHeaderBg,
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, __, ___) => Container(
+                          color: isCompatible
+                              ? AppColors.primaryContainer
+                              : AppColors.neutral200,
+                          child: Center(
+                            child: Icon(
+                              Icons.handyman_rounded,
+                              size: 44,
+                              color: isCompatible
+                                  ? AppColors.primary
+                                  : AppColors.neutral500,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    if (!isCompatible)
+                      DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: Colors.black.withValues(alpha: 0.45),
+                        ),
+                      ),
+                  ],
                 ),
               ),
             ),

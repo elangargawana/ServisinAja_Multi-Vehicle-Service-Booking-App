@@ -4,7 +4,8 @@
     "address": "Jl. RS. Fatmawati No. 47, RT.1/RW.5, Cilandak Barat",
     "district": "Cilandak, Jakarta Selatan", "city": "Jakarta Selatan",
     "latitude": -6.2955, "longitude": 106.7940, "phone": "+62215762345",
-    "rating": 4.7, "reviewCount": 312, "photoUrls": [],
+    "rating": 4.7, "reviewCount": 312,
+    "photoUrls": ["https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=800&auto=format&fit=crop&q=80"],
     "openHours": [
       {"dayOfWeek":1,"openTime":"08:00","closeTime":"17:00","isClosed":false},
       {"dayOfWeek":2,"openTime":"08:00","closeTime":"17:00","isClosed":false},
@@ -22,7 +23,8 @@
     "address": "Jl. Metro Pondok Indah No. 12, Pondok Pinang",
     "district": "Kebayoran Lama, Jakarta Selatan", "city": "Jakarta Selatan",
     "latitude": -6.2672, "longitude": 106.7860, "phone": "+62217650123",
-    "rating": 4.5, "reviewCount": 187, "photoUrls": [],
+    "rating": 4.5, "reviewCount": 187,
+    "photoUrls": ["https://images.unsplash.com/photo-1615906655593-ad0386982a0f?w=800&auto=format&fit=crop&q=80"],
     "openHours": [
       {"dayOfWeek":1,"openTime":"08:00","closeTime":"18:00","isClosed":false},
       {"dayOfWeek":2,"openTime":"08:00","closeTime":"18:00","isClosed":false},
@@ -40,7 +42,8 @@
     "address": "Jl. TB Simatupang Kav. 30, Cilandak",
     "district": "Cilandak, Jakarta Selatan", "city": "Jakarta Selatan",
     "latitude": -6.3012, "longitude": 106.8095, "phone": "+62215012500",
-    "rating": 4.6, "reviewCount": 489, "photoUrls": [],
+    "rating": 4.6, "reviewCount": 489,
+    "photoUrls": ["https://images.unsplash.com/photo-1486006920555-c77dce18193b?w=800&auto=format&fit=crop&q=80"],
     "openHours": [
       {"dayOfWeek":1,"openTime":"07:30","closeTime":"17:00","isClosed":false},
       {"dayOfWeek":2,"openTime":"07:30","closeTime":"17:00","isClosed":false},
@@ -58,7 +61,8 @@
     "address": "Jl. Margonda Raya No. 154, Beji",
     "district": "Beji, Depok", "city": "Depok",
     "latitude": -6.3800, "longitude": 106.8307, "phone": "+62217776543",
-    "rating": 4.4, "reviewCount": 223, "photoUrls": [],
+    "rating": 4.4, "reviewCount": 223,
+    "photoUrls": ["https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=800&auto=format&fit=crop&q=80"],
     "openHours": [
       {"dayOfWeek":1,"openTime":"08:00","closeTime":"17:00","isClosed":false},
       {"dayOfWeek":2,"openTime":"08:00","closeTime":"17:00","isClosed":false},
@@ -76,7 +80,8 @@
     "address": "Jl. Ahmad Yani No. 88, Bekasi Timur",
     "district": "Bekasi Timur, Bekasi", "city": "Bekasi",
     "latitude": -6.2396, "longitude": 107.0013, "phone": "+62218821234",
-    "rating": 4.3, "reviewCount": 156, "photoUrls": [],
+    "rating": 4.3, "reviewCount": 156,
+    "photoUrls": ["https://images.unsplash.com/photo-1625047509168-a7026f36de04?w=800&auto=format&fit=crop&q=80"],
     "openHours": [
       {"dayOfWeek":1,"openTime":"08:00","closeTime":"17:30","isClosed":false},
       {"dayOfWeek":2,"openTime":"08:00","closeTime":"17:30","isClosed":false},
