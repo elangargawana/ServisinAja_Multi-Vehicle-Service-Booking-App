@@ -672,19 +672,44 @@ class _CostSummaryCard extends StatelessWidget {
               color: AppColors.white.withValues(alpha: 0.15),
               borderRadius: AppRadius.cardRadius,
             ),
-            child: Row(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(Icons.info_outline_rounded,
-                    size: 14, color: AppColors.white),
-                const SizedBox(width: AppSpacing.xs),
-                Expanded(
-                  child: Text(
-                    'Biaya final dikonfirmasi oleh bengkel setelah diagnosa kendaraan.',
-                    style: AppTypography.bodySmall.copyWith(
-                      color: AppColors.white.withValues(alpha: 0.8),
+                Row(
+                  children: [
+                    const Icon(Icons.info_outline_rounded,
+                        size: 14, color: AppColors.white),
+                    const SizedBox(width: AppSpacing.xs),
+                    Expanded(
+                      child: Text(
+                        'Biaya final dikonfirmasi oleh bengkel setelah diagnosa kendaraan.',
+                        style: AppTypography.bodySmall.copyWith(
+                          color: AppColors.white.withValues(alpha: 0.8),
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
+                if (vehicleCount > 1) ...[
+                  const SizedBox(height: AppSpacing.xs2),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Icon(Icons.schedule_rounded,
+                          size: 14, color: AppColors.white),
+                      const SizedBox(width: AppSpacing.xs),
+                      Expanded(
+                        child: Text(
+                          'Estimasi durasi total jika pengerjaan bertahap. Waktu bisa lebih cepat jika mekanik tersedia bersamaan.',
+                          style: AppTypography.bodySmall.copyWith(
+                            color: AppColors.white.withValues(alpha: 0.8),
+                            fontSize: 11,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ],
             ),
           ),

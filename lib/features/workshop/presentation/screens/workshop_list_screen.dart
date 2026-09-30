@@ -301,8 +301,10 @@ class _WorkshopCard extends StatelessWidget {
                             isCompatible: false,
                           )
                         else
-                          const _CompatibilityPill(
-                            label: 'Cocok',
+                          _CompatibilityPill(
+                            label: requiredCategories.length > 1
+                                ? 'Melayani Mobil & Motor'
+                                : 'Cocok (${workshop.categoryLabels.join(' & ')})',
                             isCompatible: true,
                           ),
                       ],

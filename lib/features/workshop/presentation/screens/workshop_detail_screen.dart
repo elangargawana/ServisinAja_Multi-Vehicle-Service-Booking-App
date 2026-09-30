@@ -80,6 +80,10 @@ class _WorkshopDetailScreenState extends ConsumerState<WorkshopDetailScreen> {
         final workshopLabels = workshop.categories
             .map((c) => c == 'mobil' ? 'Mobil' : 'Motor')
             .join(' & ');
+        final hasMultipleCategories = session.vehicleConfigs
+            .map((c) => c.vehicle.categoryId)
+            .toSet()
+            .length > 1;
 
         return Scaffold(
           backgroundColor: AppColors.background,
@@ -252,6 +256,36 @@ class _WorkshopDetailScreenState extends ConsumerState<WorkshopDetailScreen> {
                                 ),
                               ),
                             ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+                if (isCompatible && hasMultipleCategories) ...[
+                  Container(
+                    width: double.infinity,
+                    margin: const EdgeInsets.only(bottom: AppSpacing.sm),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.md,
+                      vertical: AppSpacing.xs,
+                    ),
+                    decoration: BoxDecoration(
+                      color: AppColors.successContainer,
+                      borderRadius: AppRadius.cardRadius,
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.check_circle_rounded,
+                            size: 16, color: AppColors.successDark),
+                        const SizedBox(width: AppSpacing.xs),
+                        Expanded(
+                          child: Text(
+                            'Bengkel ini melayani Mobil & Motor sekaligus',
+                            style: AppTypography.labelMedium.copyWith(
+                              color: AppColors.successDark,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ],
