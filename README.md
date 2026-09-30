@@ -157,5 +157,12 @@ Unit testing mencakup skenario kritis pada layer domain dan logika bisnis:
 
 ---
 
+## 📜 Dokumentasi & AI Conversation Log
+
+Seluruh riwayat command prompt, perancangan produk, dan iterasi teknis terdokumentasi secara transparan di file:
+👉 **[AI_CONVERSATION_LOG.md](AI_CONVERSATION_LOG.md)**
+
+---
+
 ## 📄 Lisensi & Hak Cipta
 Aplikasi ini dikembangkan khusus sebagai pemenuhan **Technical Assessment / Product Challenge** untuk posisi Mobile Engineer (Flutter). Seluruh mock data dan ilustrasi digunakan semata-mata untuk keperluan demonstrasi fungsional.
